@@ -1,0 +1,49 @@
+# Prometheus + Grafana + OTEL Collector stack
+version: "3.8"
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus/alert_rules.yml:/etc/prometheus/alert_rules.yml:ro
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090"
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./prometheus/alert_rules.yml:/etc/alertmanager/alert_rules.yml:ro
+
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.45
+    ports:
+      - "16686:16686"   # UI
+      - "14268:14268"   # collector (OTLP/jaeger)
+      - "6831:6831/udp" # spans
+  otel-collector:
+    image: otel/opentelemetry-collector:0.86.0
+    volumes:
+      - ./otel/otel-collector-config.yml:/etc/otel/config.yml:ro
+    command: ["--config=/etc/otel/config.yml"]
+    ports:
+      - "4317:4317" # OTLP gRPC
+      - "4318:4318" # OTLP HTTP
+      - "55681:55681"
+  loki:
+    image: grafana/loki:2.9.1
+    ports:
+      - "3100:3100"
+

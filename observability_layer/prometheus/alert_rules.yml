@@ -1,0 +1,22 @@
+# Alertmanager rules
+groups:
+- name: ai-system.rules
+  rules:
+  - alert: HighDLQGrowth
+    expr: increase(app_http_requests_total{status="500"}[5m]) > 100
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "High 500 errors in last 5m"
+      description: "500 errors increased a lot."
+
+  - alert: ServiceDown
+    expr: absent(up{job=~"control-api|input-layer|processing-layer|ai-layer"} == 1)
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Service down"
+      description: "One or more services not reporting up=1"
+

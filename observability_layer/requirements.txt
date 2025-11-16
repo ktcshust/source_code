@@ -1,0 +1,17 @@
+prometheus-client==0.23.1
+opentelemetry-api==1.38.0
+opentelemetry-sdk==1.38.0
+opentelemetry-instrumentation==0.59.0b0
+opentelemetry-instrumentation-fastapi==0.59.0b0
+opentelemetry-exporter-otlp==1.38.0
+opentelemetry-exporter-otlp-proto-http==1.38.0
+opentelemetry-instrumentation-asyncpg==1.38.0
+opentelemetry-instrumentation-redis==1.38.0
+structlog==25.5.0
+prometheus-flask-exporter==0.22.0
+aiobreaker==1.2.0
+pybreaker==1.4.1
+fastapi==0.121.2
+uvicorn==0.38.0
+httpx==0.28.1
+python-dotenv>=1.0.0

@@ -1,0 +1,25 @@
+# Prometheus configuration
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'control-api'
+    static_configs:
+      - targets: ['control-api:8000']
+  - job_name: 'input-layer'
+    static_configs:
+      - targets: ['input:8000']
+  - job_name: 'processing-layer'
+    static_configs:
+      - targets: ['processing:8001']
+  - job_name: 'ai-layer'
+    static_configs:
+      - targets: ['ai:8002']
+  - job_name: 'otel-collector'
+    static_configs:
+      - targets: ['otel-collector:8888'] # if exporter metrics endpoint enabled
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ['alertmanager:9093']
+

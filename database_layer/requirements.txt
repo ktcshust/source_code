@@ -1,0 +1,6 @@
+pymongo>=4.10.0
+redis>=5.1.0
+psycopg[binary]>=3.2.1
+boto3>=1.35.30
+pydantic>=2.9.0
+pgvector>=0.2.5

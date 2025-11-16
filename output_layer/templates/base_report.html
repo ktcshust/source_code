@@ -1,0 +1,12 @@
+<!-- base HTML template for report -->
+ <html>
+<body>
+<h1>AI News Summary</h1>
+{% for item in items %}
+    <h3>{{ item.title }}</h3>
+    <p>{{ item.summary }}</p>
+    <hr>
+{% endfor %}
+</body>
+</html>
+
